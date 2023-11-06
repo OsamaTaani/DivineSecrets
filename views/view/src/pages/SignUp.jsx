@@ -5,7 +5,7 @@ import logoDIVINE from '../assets/logoDIVINE.png';
 import googleLogo from '../assets/google.png';
 
 const SignUp = () => {
-  const [name, setName] = useState("");
+  const [username, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -20,7 +20,6 @@ const SignUp = () => {
       return;
     }
 
-  
     if (password !== confirmPassword) {
       setPasswordError("Passwords do not match");
       return;
@@ -39,21 +38,23 @@ const SignUp = () => {
     }
 
     try {
-      const response = await axios.post("/api/signup", {
-        name,
+      const response = await axios.post("http://localhost:3001/register", {
+        username,
         email,
         password,
-      confirmPassword,
       });
 
-    
       console.log("User registered successfully", response.data);
+      setRegistrationMessage("User registered successfully");
     } catch (error) {
-  
       console.error("Registration failed", error);
+      setRegistrationMessage("Registration failed");
     }
   };
 
+  const handleGoogleSignUp = () => {
+    window.location.href = "http://localhost:3001/google";
+  };
 
   return (
     <section className="bg-[#FEFAF0] dark:bg-gray-900">
@@ -71,9 +72,9 @@ const SignUp = () => {
                 <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your name</label>
                 <input
                   type="text"
-                  name="name"
-                  id="name"
-                  value={name}
+                  name="username"
+                  id="username"
+                  value={username}
                   onChange={(e) => setName(e.target.value)}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="User Name"
@@ -156,6 +157,7 @@ const SignUp = () => {
               </div>
               <button
                 type="button"
+                onClick={handleGoogleSignUp}
                 className="text-black bg-[#FEFAF0] hover:bg-[#FEFAF0] focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover-[#FEFAF0] dark:focus:ring-red-800 w-full"
               >
                 Sign up with Google
