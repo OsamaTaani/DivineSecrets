@@ -13,7 +13,7 @@ const productImageController = require('./controllers/productImageController');
 const commentController = require('./controllers/commentController');
 const profileController = require('./controllers/profileController');
 const userDetails = require('./controllers/profileController');
-
+const deleteCart = require("./controllers/cartController");
 const path = require("path");
 require("dotenv").config();
 require('./auth');
@@ -32,9 +32,8 @@ app.post('/login', userController.loginUser);
 app.get('/home', productController.getAllProducts);
 app.get('/categorys/:category', productController.getProductsByCategory);
 app.get('/products_details/:id', productController.getProductById);
-app.post('/add-to-cart', cartController.addToCart);
-app.get('/user-cart/:userId', cartController.getUserCartWithImages);
-
+// app.post('/add-to-cart', cartController.addToCart);
+// app.get('/user-cart/:userId', cartController.getUserCartWithImages);
 app.post('/addComment',commentController.addComment);
 app.put('/user/:userId', profileController.updateUser);
 app.get('/user/:userId',userDetails.getUserDetails);
@@ -45,6 +44,13 @@ app.get('/users/:id', adminUserController.userDetail);
 // app.get('/users/create', userController.userCreateGet);
 // app.post('/users/create', adminUserController.userCreatePost);
 app.delete('/delete/:id', adminUserController.userDelete);
+
+app.post('/add-to-cart',  cartController.addToCart);
+app.delete('/delete-cart/:cart_id',cartController.deleteCart);
+app.get('/user-cart/:userId', cartController.getUserCartWithImages);
+// app.delete('/remove-from-cart', cartController.removeProductFromCart);
+// app.get('/cart-total', cartController.calculateCartTotal);
+
 // app.delete('/users/:id/delete', adminUserController.userDeletePost);
 app.get('/google/failure', (req, res) => {
   res.send('Failed to authenticate..');

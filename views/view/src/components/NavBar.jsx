@@ -181,7 +181,7 @@ export const Navbar = (props) => {
                         </div> */}
 
               <div className=" flex flex-row gap-4">
-                <Link to="/signup">
+                <Link to="/shoppingcart">
                   <img src={ShopCart} className="absolute top-1 right-12 w-6 h-6 justify-self-end hover:scale-150" alt="Shop Cart" />
                 </Link>
                 {loginNav}
